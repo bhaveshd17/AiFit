@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    
+    <div class="card shadow card-body mx-2">
+        <h3 class="grey-color text-center my-3">Add Exercise</h3>
+        <form method="POST" class="mt-3 pt-3" enctype="multipart/form-data">
+            {%csrf_token%}
+            <div id="event-details">
+                <div class="mb-3 form-floating">
+                    {{form.title}}
+                    <label for="id_title">Title of Exercise</label>
+                </div>
+                <div class="mb-3 form-floating">
+                    {{form.equipment}}
+                    <label for="id_price">Name of Equipment</label>
+                </div>
+                <div class="mb-3 form-floating">
+                    {{form.f_area}}
+                    <label for="id_description">Focus Area</label>
+                </div>
+                <div class="mb-3 form-floating">
+                    {{form.prep}}
+                    <label for="id_description">Preparation</label>
+                </div>
+                <div class="mb-3 form-floating">
+                    {{form.execution}}
+                    <label for="id_description">Execution</label>
+                </div>
+                <div class="mb-3 form-floating">
+                    {{form.keyTip}}
+                    <label for="id_description">Key Tips</label>
+                </div>
+                
+                
+                <div class=" mb-3">
+                    <!-- <input type="text" value="choose profile image" id="profile-img-in" readonly style="cursor: pointer;" onclick="fileTrig()"> -->
+                    <label for="id_post_img" style="color: #eee;">Image</label>
+                    {{form.image}}
+                    
+                </div>
+                
+                <div class="mb-3 mt-5 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-outline-dark w-50">Add Exercise</button>
+                </div>
+                
+                
+                
+            </form>
+        </div>
+    </div>
+
+    <script>    
+    $("input").addClass("form-control")
+    $("input").prop("placeholder", "search")
+    $("select").addClass("form-select")
+    $("textarea").addClass("form-control")
+    $("textarea").prop("placeholder", "abc")
+</script>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}
+Check Form
+{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  .heading {
+    color: #ffcc74;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .video_inp {
+    margin-top: 4rem;
+    height: 100%;
+    width: 100%;
+  }
+</style>
+
+
+<div class="container mt-t pt-5">
+  <h3 class="heading">{{category}} Position Detecting</h3>
+  <div class="row">
+    <div class="col-6">
+      {% if flag %}
+      <div><img src="{% url 'video_feed' %}" class="img-fluid rounded" alt=""></div>
+      {% else %}
+      <div><video class="img-fluid video_inp rounded" id="video_sc"></video></div>
+      {% endif %}
+    </div>
+    <div class="col-6">
+      <div style="text-align: center;">
+        <button style="margin-top: 4rem; margin-bottom: 4rem;" class="btn btn-success" type="button" id="btnStart" >Start Recording</button>
+        <h3 style="color:#fff">Average Accuracy</h3>
+        <h2 style="color: #ffcc74;">97%</h2>
+        <h2 style="color: #ffcc74;">Predicted Class: Tree</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  const id = '{{category}}';
+  let csrfToken = getCookie('csrftoken');
+</script>
+<!-- <script src="{% static 'js/media_device.js' %}"></script> -->
+{% endblock content %}

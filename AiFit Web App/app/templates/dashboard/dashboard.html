@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>AIFit| Dashboard</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="{% static  'images/logo1.png' %}" type="image/png">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/base.css' %}" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+  <style>
+    body{
+      background-color: rgb(17, 17, 20);
+      color: #ffffff;
+    }
+    p{
+      color: #bababb;
+    }
+    .img-fluid{
+      height: 80% !important;
+      width: 80% !important;
+    }
+  </style>
+
+  <!-- =======================================================
+  * Template Name: AIFit - v4.9.1
+  * Template URL: https://bootstrapmade.com/AIFit-free-bootstrap-landing-page-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="{% url 'dashboard' %}"><span>AIFit</span></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <!-- <li><a class="nav-link scrollto" href="#hero">Home</a></li> -->
+          <li><a class="nav-link scrollto" href="#training">Training</a></li>
+          <li><a class="nav-link scrollto" href="#detectForm">Detect Form</a></li>
+          <li><a class="nav-link scrollto" href="#rep">REP</a></li>
+          <li><a class="nav-link scrollto" href="#blogs">Blogs</a></li>
+          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <!-- <section id="hero">
+
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
+          <div data-aos="zoom-out">
+            <h1>Get In Your Best Shape With <span>AIFit</span></h1>
+            <h2>We aim to provide you a complete Gym experience from the comforts of your home</h2>
+            <div class="text-center text-lg-start"> -->
+              <!-- <a href="#about" class="btn-get-started scrollto">Get Started</a> -->
+            <!-- </div>
+          </div>
+        </div>
+        <div class="col-lg-4 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
+          <img src="{% static 'assets/img/workouta.jpg' %}" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+      <defs>
+        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+      </defs>
+      <g class="wave1">
+        <use xlink:href="#wave-path" x="50" y="3" fill="#e66c2c">
+      </g>
+      <g class="wave2">
+        <use xlink:href="#wave-path" x="50" y="0" fill="#ff6700">
+      </g>
+      <g class="wave3">
+        <use xlink:href="#wave-path" x="50" y="9" fill="rgb(17,17,20)">
+      </g>
+    </svg>
+
+  </section> -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <!-- <section id="about" class="about">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch" data-aos="fade-right">
+            <a href="https://www.youtube.com/watch?v=StpBR2W8G5A" class="glightbox play-btn mb-4"></a>
+          </div>
+
+          <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5" data-aos="fade-left">
+            <h3>Are you worried that virtual platforms won't provide you the complete gym experience?</h3>
+            <p>We have you covered! AIFit offers</p>
+
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
+              <div class="icon"><i class="bx bx-fingerprint"></i></div>
+              <h4 class="title"><a href="">AI-based Trainer</a></h4>
+              <p class="description">Covering all the tasks of a regular gym trainer, the Artifical Intelligence based trainer helps detect form and provides an analysis of your workouts</p>
+            </div>
+
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+              <div class="icon"><i class="bx bx-gift"></i></div>
+              <h4 class="title"><a href="">Personalized Exercises</a></h4>
+              <p class="description">Based on your experience, level and capabilities, we provide you optimal routines to follow</p>
+            </div>
+
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
+              <div class="icon"><i class="bx bx-atom"></i></div>
+              <h4 class="title"><a href="">Competitiveness & Support</a></h4>
+              <p class="description">We understand that your gym buddies are your greatest motivators and our <i>Forum</i> and <i>Progression Status</i> helps the community to support and compete with each other</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div> -->
+    <!-- </section> -->
+    <!-- End About Section -->
+
+    <!-- ======= Features Section ======= -->
+    <!-- <section id="features" class="features">
+      <div class="container"> -->
+
+        <!-- <div class="section-title" data-aos="fade-up"> -->
+          <!-- <h2>Features</h2> -->
+          <!-- <p>Features</p>
+        </div> -->
+<!-- 
+        <div class="row" data-aos="fade-left">
+          <div class="col-lg-3 col-md-4">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="50">
+              <i class="ri-store-line" style="color: #ffbb2c;"></i>
+              <h3><a href="">Training Space</a></h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
+              <i class="ri-calendar-todo-line" style="color: #e80368;"></i>
+              <h3><a href="">Real-Time Form Detection</a></h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="150">
+              <i class="ri-bar-chart-box-line" style="color: #5578ff;"></i>
+              <h3><a href="">Analysis & Statistics</a></h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
+              <i class="ri-paint-brush-line" style="color: #e361ff;"></i>
+              <h3><a href="">Progression and Levels</a></h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="250">
+              <i class="ri-database-2-line" style="color: #47aeff;"></i>
+              <h3><a href="">Forum for the Community</a></h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
+              <i class="ri-gradienter-line" style="color: #ffa76e;"></i>
+              <h3><a href="">REP Counter</a></h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="350">
+              <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+              <h3><a href="">Blog Space</a></h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="400">
+              <i class="ri-price-tag-2-line" style="color: #4233ff;"></i>
+              <h3><a href="">Subscription Model</a></h3>
+            </div>
+          </div> -->
+          <!-- <div class="col-lg-3 col-md-4 mt-4">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="450">
+              <i class="ri-anchor-line" style="color: #b2904f;"></i>
+              <h3><a href="">Dirada Pack</a></h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="500">
+              <i class="ri-disc-line" style="color: #b20969;"></i>
+              <h3><a href="">Moton Ideal</a></h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="550">
+              <i class="ri-base-station-line" style="color: #ff5828;"></i>
+              <h3><a href="">Verdo Park</a></h3>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 mt-4">
+            <div class="icon-box" data-aos="zoom-in" data-aos-delay="600">
+              <i class="ri-fingerprint-line" style="color: #29cc61;"></i>
+              <h3><a href="">Flavor Nivelanda</a></h3>
+            </div>
+          </div> -->
+        <!-- </div> -->
+
+      <!-- </div> -->
+    <!-- </section>End Features Section -->
+
+    <!-- ======= Counts Section ======= -->
+    <!-- <section id="counts" class="counts">
+      <div class="container">
+
+        <div class="row" data-aos="fade-up">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-emoji-smile"></i>
+              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Happy Clients</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+            <div class="count-box">
+              <i class="bi bi-journal-richtext"></i>
+              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Projects</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <i class="bi bi-headset"></i>
+              <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Hours Of Support</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <i class="bi bi-people"></i>
+              <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Hard Workers</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div> -->
+    <!-- </section>End Counts Section -->
+
+    <!-- ======= Details Section ======= -->
+     
+      <section id="details" class="details"> 
+      <div class="container">
+
+        <div class="row content" id="training">
+          <div class="col-md-4 my-5" data-aos="fade-right">
+            <img src="{% static 'assets/img/tspace.jpg' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-md-8 my-5" data-aos="fade-up">
+            <h3><a href="{% url 'trainer_main' %}">Training Space</a></h3>
+            <p>The training space helps users to understand various exercises and how to correctly perform them. This will help beginners to understand how to correctly perform a specific exercise while understanding the precise form as well</p>
+            <p class="fst-italic">
+              The Training space provides:
+            </p>
+            <ul>
+              <li><i class="bi bi-check"></i> Visual representation of different exercises</li>
+              <li><i class="bi bi-check"></i> Different muscle groups targeted in a particular exercise</li>
+              <li><i class="bi bi-check"></i> Preparation/Pre-requisites</li>
+              <li><i class="bi bi-check"></i> Proper Execution & Key Tips</li>
+            </ul>
+            <!-- <p>
+              Voluptas nisi in quia excepturi nihil voluptas nam et ut. Expedita omnis eum consequatur non. Sed in asperiores aut repellendus. Error quisquam ab maiores. Quibusdam sit in officia
+            </p> -->
+          </div>
+        </div>
+
+        <div class="row content" id="detectForm">
+          <div class="col-md-4 my-5 order-1 order-md-2" data-aos="fade-left">
+            <img src="{% static 'assets/img/rt.jpg' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-md-8 my-5 order-2 order-md-1" data-aos="fade-up">
+            <h3><a href="{% url 'check_form_detection' 'tree' %}">Real-time Form Detection</a></h3>
+            <!-- <p class="fst-italic">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
+            </p> -->
+            <p>
+              This feature provides the human touch to the virtual gym experience. Users can get a real-time form analysis on how they are performing a particular exercise
+            </p>
+            <p>
+              This analysis will be highly beneficial and help users track their progress over time and will be considered as a factor in their leveling up procedure
+            </p>
+            <p>Users can use their device camera to record their video</p>
+            <p>This will be a fast process and users will not have to wait for longer times to get their analysis</p>
+
+          </div>
+        </div>
+
+        <div class="row content" id="rep">
+          <div class="col-md-4 my-5" data-aos="fade-right">
+            <img src="{% static 'assets/img/rpco.jpg' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-md-8 my-5" data-aos="fade-up">
+            <h3>REP Counter</h3>
+            <p>This feature helps the user count reps in an exercise. The number of accurate reps will be displayed on the screen and their accuracy will be checked based on angles</p>
+            <ul>
+              
+              <li><i class="bi bi-check"></i> Reps shown on the screen based on form</li>
+              <li><i class="bi bi-check"></i> Incomplete reps are not counted thus helping user improve the form</li>
+              <li><i class="bi bi-check"></i> Timer is included which can help user time their exercises</li>
+              <li><i class="bi bi-check"></i> Analyzing the level of the user by comparing time and accurate reps</li>
+            </ul>
+            <!-- <p>
+              Qui consequatur temporibus. Enim et corporis sit sunt harum praesentium suscipit ut voluptatem. Et nihil magni debitis consequatur est.
+            </p>
+            <p>
+              Suscipit enim et. Ut optio esse quidem quam reiciendis esse odit excepturi. Vel dolores rerum soluta explicabo vel fugiat eum non.
+            </p> -->
+          </div>
+        </div>
+
+        <div class="row content" id="blogs">
+          <div class="col-md-4 my-5 order-1 order-md-2" data-aos="fade-left">
+            <img src="{% static 'assets/img/bspace.jpg' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-md-8 my-5 order-2 order-md-1" data-aos="fade-up">
+            <h3><a href="{% url 'blogs' %}">Blog Space</a></h3>
+            <!-- <p class="fst-italic">
+              LUsers can create blogs for the community to read. The number of views and the upload date will be available on the blog. The user is allowed to delete or update the blogs and add new ones as well
+            </p> -->
+            <p>
+              Users can create blogs for the community to read. The number of views and the upload date will be available on the blog. The user is allowed to delete or update the blogs and add new ones as well
+            </p>
+            <!-- <ul>
+              <li><i class="bi bi-check"></i> Et praesentium laboriosam architecto nam .</li>
+              <li><i class="bi bi-check"></i> Eius et voluptate. Enim earum tempore aliquid. Nobis et sunt consequatur. Aut repellat in numquam velit quo dignissimos et.</li>
+              <li><i class="bi bi-check"></i> Facilis ut et voluptatem aperiam. Autem soluta ad fugiat.</li>
+            </ul> -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- End Details Section --> 
+
+    <!-- ======= Gallery Section ======= -->
+    <!-- <section id="gallery" class="gallery">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Gallery</h2>
+          <p>Check our Gallery</p>
+        </div>
+
+        <div class="row g-0" data-aos="fade-left">
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
+              <a href="assets/img/gallery/workoute.jpg" class="gallery-lightbox">
+                <img src="assets/img/gallery/workoute.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="150">
+              <a href="assets/img/gallery/workoutb2b.jpg" class="gallery-lightbox">
+                <img src="assets/img/gallery/workoutb2b.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
+              <a href="assets/img/gallery/workoutc.jpg" class="gallery-lightbox">
+                <img src="assets/img/gallery/workoutc.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="250">
+              <a href="assets/img/gallery/workouth.jpg" class="gallery-lightbox">
+                <img src="assets/img/gallery/workouth.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300">
+              <a href="assets/img/gallery/workoutf.jpg" class="gallery-lightbox">
+                <img src="assets/img/gallery/workoutf.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="350">
+              <a href="assets/img/gallery/workoutg.jpg" class="gallery-lightbox">
+                <img src="assets/img/gallery/workoutg.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="400">
+              <a href="assets/img/gallery/workouti.jpg" class="gallery-lightbox">
+                <img src="assets/img/gallery/workouti.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="450">
+              <a href="assets/img/gallery/workoutj.jpg" class="gallery-lightbox">
+                <img src="assets/img/gallery/workoutj.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div> -->
+    <!-- </section> -->
+    <!-- End Gallery Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <!-- <section id="testimonials" class="testimonials">
+      <div class="container">
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/boy1.jpg" class="testimonial-img" alt="">
+                <h3>Raj Chauhan</h3>
+                <h4>Artist</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Due to my busy schedule, I am not unable to frequently visit the gym. AIFit has helped me provide the virtual gym experience and I am grateful for it!
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div> -->
+            <!-- </div> -->
+            <!-- End testimonial item -->
+
+            <!-- <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                <h3>Sara Wilsson</h3>
+                <h4>Designer</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div> -->
+            <!-- End testimonial item -->
+
+            
+              <!-- <div class="swiper-slide"> 
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/boy2.jpg" class="testimonial-img" alt="">
+                <h3>Arnab Elroy</h3>
+                <h4>Businessman</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  AIFit provides me an inexpensive modern way to workout with the help of latest technologies. I can easily schedule my workout sessions at my comfort anywhere anytime.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div> -->
+            <!-- </div>
+           --> 
+            <!-- End testimonial item -->
+
+            <!-- <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                <h3>Matt Brandon</h3>
+                <h4>Freelancer</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div> -->
+            <!-- </div> -->
+            <!-- End testimonial item -->
+
+            <!-- <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                <h3>John Larson</h3>
+                <h4>Entrepreneur</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+            End testimonial item -->
+<!-- 
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div> -->
+    <!-- </section> -->
+    <!-- End Testimonials Section -->
+
+    <!-- ======= Team Section ======= -->
+    <!-- <section id="team" class="team">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Team</h2>
+          <p>Our Great Team</p>
+        </div>
+
+        <div class="row" data-aos="fade-left">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="member" data-aos="zoom-in" data-aos-delay="100">
+              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Walter White</h4>
+                <span>Chief Executive Officer</span>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+            <div class="member" data-aos="zoom-in" data-aos-delay="200">
+              <div class="pic"><img src="assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Sarah Jhonson</h4>
+                <span>Product Manager</span>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="member" data-aos="zoom-in" data-aos-delay="300">
+              <div class="pic"><img src="assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>William Anderson</h4>
+                <span>CTO</span>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="member" data-aos="zoom-in" data-aos-delay="400">
+              <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Amanda Jepson</h4>
+                <span>Accountant</span>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div> 
+
+        </div>
+
+      </div> -->
+    <!-- </section> -->
+    <!-- End Team Section -->
+
+    <!-- ======= Pricing Section ======= -->
+    <section id="pricing" class="pricing">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Pricing</h2>
+          <p>Check our Pricing</p>
+        </div>
+
+        <div class="row" data-aos="fade-left">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="box" data-aos="zoom-in" data-aos-delay="100">
+              <h3>Free</h3>
+              <h4><sup>&#x20b9</sup>0<span> / month</span></h4>
+               <ul>
+                <li>Training Space</li>
+                <li>Blog Space</li>
+                <li>REP Counter</li>
+                <li>Forum</li>
+                <li class="na">Progression & Levels</li>
+                <li class="na">Real-Time Form Detection</li>
+                <li class="na">Analysis & Statistics</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-4 mt-md-0">
+            <div class="box featured" data-aos="zoom-in" data-aos-delay="200">
+              <h3>Basic</h3>
+              <h4><sup>&#x20b9</sup>150<span> / month</span></h4>
+              <ul>
+                <li>Training Space</li>
+                <li>Blog Space</li>
+                <li>REP Counter</li>
+                <li>Forum</li>
+                <li>Progression & Levels</li>
+                <li class="na">Real-Time Form Detection</li>
+                <li class="na">Analysis & Statistics</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
+            <div class="box" data-aos="zoom-in" data-aos-delay="300">
+              <h3>Standard</h3>
+              <h4><sup>&#x20b9</sup>300<span> / month</span></h4>
+              <ul>
+                <li>Training Space</li>
+                <li>Blog Space</li>
+                <li>REP Counter</li>
+                <li>Forum</li>
+                <li>Progression & Levels</li>
+                <li>Real-Time Form Detection</li>
+                <li class="na">Analysis & Statistics</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-4 mt-lg-0">
+            <div class="box" data-aos="zoom-in" data-aos-delay="400">
+              <span class="advanced">Advanced</span>
+              <h3>Premium</h3>
+              <h4><sup>&#x20b9</sup>400<span> / month</span></h4>
+              <ul>
+                <li>Training Space</li>
+                <li>Blog Space</li>
+                <li>REP Counter</li>
+                <li>Forum</li>
+                <li>Progression & Levels</li>
+                <li>Real-Time Form Detection</li>
+                <li>Analysis & Statistics</li>
+              </ul>
+              <div class="btn-wrap">
+                <a href="#" class="btn-buy">Buy Now</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Pricing Section -->
+
+
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-info">
+              <h3>AIFit</h3>
+              <p class="pb-3"><em>“If you want something you’ve never had, you must be willing to do something you’ve never done.”</em></p>
+              <p>
+                Vidyalankar Institute of Technology <br>
+                Mumbai, India<br><br>
+                <strong>Phone:</strong> 022 2342 3222<br>
+                <strong>Email:</strong> aifit@vit.edu.in<br>
+              </p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Real-Time Form Detection</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Analysis & Statistics</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">REP Counter</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Community Forum</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Training Space</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Blog Space</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>Subscribe to get latest news, offers and notifications!</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>AIFit</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bootslander-free-bootstrap-landing-page-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">RCB</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

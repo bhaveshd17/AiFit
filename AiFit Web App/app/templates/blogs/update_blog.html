@@ -1,0 +1,35 @@
+{% extends "base/bootNav.html" %}
+
+
+{% block content %}
+
+<div class="container">
+
+    <form method="POST" class="mt-5 pt-5" enctype="multipart/form-data">
+        {%csrf_token%}
+        <div class="col-md-12">
+            <label for="">Enter Blog Title:</label>
+            <input type="text" value="{{blog_obj.title}}" class="form-control mb-3 pb-3" placeholder="Enter Title"
+                name="title">
+        </div>
+        <div class="col-md-12">
+            {{form.media}}
+            {{form.as_p}}
+
+        </div>
+        <div class="col-md-12">
+            <input type="file" value="{{blog_obj.image}}" name="image" class="form-control">
+        </div>
+        <div><button type="submit" class="btn btn-primary mt-4">Update Blog</button></div>
+
+
+
+
+    </form>
+
+
+
+</div>
+
+
+{% endblock %}

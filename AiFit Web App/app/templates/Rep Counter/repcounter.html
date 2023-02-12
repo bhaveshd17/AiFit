@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}
+Rep Counter
+{% endblock title %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/check_form_detection.css' %}">
+
+<div class="container mt-t pt-5">
+  <h3 class="heading">Rep Counter</h3>
+
+
+  {% if flag == 'rep' %}
+  <div class="row">
+    <div class="col-6">
+      <div><img src="{% url 'video_feed_rep' %}" class="img-fluid rounded" alt=""></div>
+    </div>
+    <div class="col-6">
+      <div style="text-align: center;margin-top: 5rem;">
+        <a href="{% url 'rep_counter_biceps' %}" style="margin-top: 2rem; margin-bottom: 2.5rem;" class="btn btn-danger w-50">Stop</a>
+      </div>
+    </div>
+  </div>
+  {% else %}\
+  <div class="row">
+    <div class="col-6">
+      <div><img class="img-fluid rounded" alt=""></div>
+    </div>
+    <div class="col-6">
+      <div style="text-align: center;margin-top: 5rem;">
+        <a href="{% url 'rep_counter_biceps' %}?flag=rep" style="margin-top: 2rem; margin-bottom: 2.5rem;" class="btn btn-success w-50">Start</a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+<div id="check_form_loader"></div>
+
+
+{% endblock content %}

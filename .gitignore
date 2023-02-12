@@ -1,0 +1,9 @@
+venv/
+DATASET/
+Dataset/
+AiFit Model/AIFIT_DATASET/
+AiFit Model/Models/
+AiFit Model/Weights/
+AiFit Model/features.txt
+AiFit Model/.ipynb_checkpoints/
+Aifit Web App/best_model_V2.h5

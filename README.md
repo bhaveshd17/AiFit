@@ -1,0 +1,3 @@
+# AiFit
+
+A personalised workout or training website or application should detect proper form ofworkouts, has a counter for reps, does the process of analysing and correction; in short, something that emulates the tasks of a human gym trainer. It should also provide personalised set of exercises based on various factors and support and constructive competition among users. AIFit is a website that aims to provide all this under one roof based on various subscription models and has a variety of features ranging from real-time body form detection to rep counter. It provides all this under various subscription models and uses latest state of the art technologies like Artifical Intelligence, Deep Learning and Object Detection.

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{%static 'css/training.css'%}">
+<section class="about">
+    <div class="content">
+        <img src="{{object.image.url}}" alt="">
+        <div class="text">
+            <h1>{{object.title}}</h1>
+            <div class="focus_area">
+                <h5>Focus Area: </h5>
+                <p>{{object.f_area}}</p>
+            </div>
+            <div class="euip">
+                <h5>Equipment: </h5>
+                <p>{{object.equipment}}</p>
+            </div>
+
+            <h5>Preparation</h5>
+            <p>{{object.prep}}</p>
+            <h5>Execution</h5>
+            <p>{{object.execution}}</p>
+            <h5>Key Tips</h5>
+            <p>{{object.keyTip}}</p>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

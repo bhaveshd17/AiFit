@@ -1,0 +1,115 @@
+.heading {
+    color: #ffcc74;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+.video_inp {
+    margin-top: 4rem;
+    height: 100%;
+    width: 100%;
+  }
+.increment_div div{
+    width: 10%;
+    user-select: none;
+}
+.increment_btn{
+    width: 100% !important;
+    border: 0 !important;
+    --bs-btn-focus-box-shadow: none !important;
+    color: #111114 !important;
+    background: #f87f1b !important;
+  }
+.increment_btn:focus, .increment_btn:active{
+    box-shadow: none !important;
+    outline: none !important;
+}
+.increment_btn:hover{
+    background-color: #f09143 !important;
+}
+.increment_btn strong{
+    color: #111114 !important;
+    font-size: 1.2rem;
+}
+#increment_btn1{
+    border-radius: 1rem 0 0 1rem !important;
+}
+#increment_btn2{
+    border-radius: 0 1rem 1rem 0 !important;
+}
+#increment_value{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #f87f1b;
+    color: #111114 !important;
+    border: none;
+    pointer-events: none;
+}
+
+
+#check_form_loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    overflow: hidden;
+    display: none;
+    background: #fff;
+  }
+  
+  #check_form_loader:before {
+    content: "";
+    position: fixed;
+    top: calc(50% - 30px);
+    left: calc(50% - 30px);
+    border: 6px solid #ff6700;
+    border-top-color: #d2f9eb;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: animate-check_form_loader 1s linear infinite;
+    animation: animate-check_form_loader 1s linear infinite;
+  }
+  
+  @-webkit-keyframes animate-check_form_loader {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes animate-check_form_loader {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+
+  .line_text {
+    text-align: center; 
+    border-bottom: 1px solid #ffcc74; 
+    line-height: 0.1em;
+    margin: 10px 0 20px; 
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+ } 
+ 
+ .line_text span { 
+     color: #ffcc74; 
+     background-color: #111114;
+     padding:0 10px; 
+ }

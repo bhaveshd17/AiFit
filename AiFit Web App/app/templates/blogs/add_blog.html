@@ -1,0 +1,35 @@
+{% extends "base/bootNav.html" %}
+
+
+{% block content %}
+
+<div class="container">
+
+    <form method="POST" class="mt-5 pt-5" enctype="multipart/form-data">
+        {%csrf_token%}
+        <div class="col-md-12">
+            <label for="">Enter Blog Title:</label>
+            <input type="text" class="form-control mb-3 pb-3" placeholder="Enter Title" name="title" required>
+        </div>
+        <div class="col-md-12">
+            {{form.media}}
+            {{form.as_p}}
+
+        </div>
+        <div class="col-md-12 "><label for="image">Cover Image: </label>
+            <input type="file" name="image" class="form-control" required>
+        </div>
+
+
+        <div class="col-md-12 mt-4">
+            <label for="">Enter Profile Link (LinkdIN or Instagram) :</label>
+            <input type="text" class="form-control mb-3 pb-3" placeholder="Enter Title" name="link" required>
+        </div>
+
+        <div><button type="submit" class="btn btn-primary mt-4">Create Blog</button></div>
+
+    </form>
+</div>
+
+
+{% endblock %}

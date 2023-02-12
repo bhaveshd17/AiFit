@@ -1,0 +1,24 @@
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="{% url 'dashboard' %}"><span>AIFit</span></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto" href="{% url 'dashboard' %}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'trainer_main' %}">Training</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'check_form' %}">Detect Form</a></li>
+          <li><a class="nav-link scrollto" href="">REP</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'blogs' %}">Blogs</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
