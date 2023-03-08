@@ -10,7 +10,7 @@
   <div class="course_container">
     <div class="course">
       <div class="course-preview">
-        <img src="{{objects.image.url}}" alt="...">
+        <img src="{% static 'images/RTD/' %}{{class}}.gif" alt="...">
       </div>
       <div class="course-info training_section">
         <a href="{% url 'check_form_detection' class %}">

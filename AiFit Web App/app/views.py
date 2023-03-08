@@ -84,11 +84,9 @@ def dashboard(request, *args, **kwargs):
 
 
 def check_form(request, *args, **kwargs):
-    objects=Trainer_form.objects.all()[0]
     CLASSES_LIST =  ['Bicep Curl', 'Overhead Press', 'Shoulder Raise', 'Squats']
     context = {
         'classes': CLASSES_LIST,
-        'objects':objects
     }
     return render(request, 'Real Time Detection/check_form.html', context)
 
@@ -97,6 +95,7 @@ def check_form(request, *args, **kwargs):
 
 def check_form_detection(request, category,*args, **kwargs):
     flag = request.GET.get('flag')
+    timer = request.GET.get('timer')
     s_key = request.GET.get('key')
     pred_class, confidence, s_obj = None, None, None
     if flag is None:
@@ -122,13 +121,15 @@ def check_form_detection(request, category,*args, **kwargs):
             'category':category[0].upper()+category[1:],
             'flag': flag,
             'pred_class':pred_class,
-            'confidence':confidence
+            'confidence':confidence,
+            'timer':timer
         }
         s_obj.delete()
     else:
         context = {
             'category':category[0].upper()+category[1:],
-            'flag': flag
+            'flag': flag,
+            'timer':timer
         }
         if s_obj:
             s_obj.delete()

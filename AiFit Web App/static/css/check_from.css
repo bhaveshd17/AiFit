@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+    background-image: linear-gradient(45deg, #161922, #000000d5);
+    font-family: 'Muli', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* min-height: 100vh; */
+    margin: 0;
+}
+
+.about {
+    width: 100%;
+    height: 100vh;
+    background-color: #161922;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+
+.about .content img{
+    height: 75vh;
+    width: 530px;
+    /* max-width: 100%; */
+}
+
+.text{
+    width: 550px;
+    max-width: 100%;
+    padding: 0 10px;
+}
+
+.content{
+    width: 1280px;
+    max-width: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.text h1,h3{
+    color: #ffcc74;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+.text h5{
+    color: white;
+    font-size:18px;
+    line-height: 25px; 
+    
+    
+}
+
+.text p{
+    color: #c0c4d6;
+    line-height: 25px;    
+    margin-bottom: 20px;
+}
+
+.focus_area{
+    display: flex;    
+}
+.focus_area h5{
+    padding-right: 20px;
+}
+
+.euip{
+    display: flex;    
+}
+.euip h5{
+    padding-right: 20px;
+}
+
+
+
+
+
+
+.title {
+    padding-top: 30px;
+    text-align: center;
+}
+
+.title h1 {
+    color: #ffcc74;
+    font-size: 40px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+.course-preview img {
+    height: 100%;
+    width: 100%;
+}
+
+
+.course {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    /* 	max-width: 100%; */
+    margin: 20px;
+    overflow: hidden;
+    width: 700px;
+}
+
+.course-info .info{
+    display: flex;
+}
+
+.course h6 {
+    opacity: 0.6;
+    margin: 0;
+    font-size: medium !important;
+    letter-spacing: 1px;
+    margin-left: 10px;
+}
+
+.course h4 {
+    font-size: medium !important;
+    margin-bottom: 5px;
+    
+}
+.course_container{
+    display: flex;
+    justify-content: center;
+}
+.course-preview {
+    
+    color: #fff;
+    padding: 20px;
+    max-width: 170px;
+}
+
+.course a{
+    position: relative;
+    display: inline-block;
+    color: #F87E1A;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-decoration: none;
+    font-size: 24px;
+    overflow: hidden;
+    transition: 0.2s;
+}
+
+
+
+.training_section a span{
+    position: absolute;
+    display: block;
+}
+
+.training_section a span:nth-child(1){
+    top:0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent,#F87E1A);
+}
+
+.training_section a:hover span:nth-child(1){
+    left: 100%;
+    transition: 1s;
+}
+
+.training_section a span:nth-child(3){
+    bottom:0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent,#F87E1A);
+}
+
+.training_section a:hover span:nth-child(3){
+    right: 100%;
+    transition: 1s;
+    transition-delay: 0.5s;
+}
+.training_section a span:nth-child(2){
+    top:-100%;
+    right:0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent,#F87E1A);
+}
+
+.training_section a:hover span:nth-child(2){
+    top: 100%;
+    transition: 1s;
+    transition-delay: 0.25s;
+}
+
+.training_section a span:nth-child(4){
+    bottom:-100%;
+    left:0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent,#F87E1A);
+}
+
+.training_section a:hover span:nth-child(4){
+    bottom: 100%;
+    transition: 1s;
+    transition-delay: 0.755s;
+}
+
+.course-info {
+    padding: 30px;
+    position: relative;
+    width: 100%;
+}
