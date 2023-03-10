@@ -4,6 +4,13 @@ from django import forms
 from .models import*
   
 # create a ModelForm
+
+class UserDataForm(forms.ModelForm):
+
+    class Meta:
+        model = UserData
+        fields ="__all__"
+
 class RecordForm(forms.ModelForm):
     # specify the name of model to use
     class Meta:
