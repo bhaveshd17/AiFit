@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Record, UserData, Accuracy
 
 from .models import UserData, Trainer_form, BlogModel
-from .forms import TrainingForm,BlogForm
+from .forms import TrainingForm,BlogForm, UserDataForm
 from .decorators import unauthenticated_user
 from django.contrib.sessions.backends.db import SessionStore
 from django.contrib.sessions.models import Session
@@ -258,6 +258,21 @@ def analysis__lookup(request, *args, **kwargs):
     return render(request, 'Analysis/analysis.html', context=context)
 
 
+def user_data(request):
+    usr_form = UserDataForm()
+    if request.method == 'POST':
+        usr_form = UserDataForm(request.POST, request.FILES)
+        if usr_form.is_valid():
+            usr_form.save()
+            print("good")
+            return redirect('dashboard')
+        else:
+            print(usr_form.errors)   
+            return redirect('userData')
+    content = {'usr_form':usr_form}
+    return render(request, 'authentication/user_details.html', content)
+
+
 @unauthenticated_user
 def sign_up__lookup(request, *args, **kwargs):
     context = {}
@@ -280,7 +295,7 @@ def sign_up__lookup(request, *args, **kwargs):
             )
             login(request, user)
             request.session.set_expiry(60 * 60 * 24)
-            return redirect(dashboard)
+            return redirect(user_data)
         else:
             messages.error(request, 'User already exist')
             return redirect(sign_up__lookup)

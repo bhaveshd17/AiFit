@@ -4,18 +4,21 @@ from django.db.models.deletion import CASCADE
 from ckeditor.fields import RichTextField
 
 
-
 class UserData(models.Model):
     username = models.OneToOneField(User,on_delete=CASCADE, null=True, blank=True)
     name = models.CharField(max_length=120, blank=True, null=True)
-    gender = models.CharField(max_length=20, choices={
-        (1, 'Male'), (2, 'Female'), (3, 'Other')
-    },  blank=True, null=True)
+    gender = models.CharField(max_length=20, choices=sorted({
+        ('1', 'Male'), ('2', 'Female'), ('3', 'Other')
+    }),  blank=True, null=True)
     age = models.IntegerField( blank=True, null=True)
-    activity_level = models.CharField(max_length=200, blank=True, null=True)
+    activity_level = models.CharField(max_length=200, choices=sorted({
+        ('1','Sedentary'),('2','Lightly active'),('3','Moderatly active'),('4','Very active')
+    }), blank=True, null=True)
     height = models.CharField(max_length=4, blank=True, null=True)
     weight = models.CharField(max_length=3, blank=True, null=True)
-    target_weight = models.CharField(max_length=3, blank=True, null=True)
+    main_goal=models.CharField(max_length=20, choices=sorted({
+        ('1','Loose Weight'),('2','Build Muscels'),('3','Keep Fit')
+    }), blank=True, null=True)
     medical_conditions = models.CharField(max_length=500, blank=True, null=True)
     
 
@@ -72,4 +75,6 @@ class BlogModel(models.Model):
     
 
     def __str__(self):
-        return self.title        
+        return self.title     
+
+   
