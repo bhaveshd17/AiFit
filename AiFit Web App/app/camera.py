@@ -13,7 +13,7 @@ class VideoCamera(object):
     def get_frame(self):
         success, image = self.video.read()
         if success:
-            image_pose, marked_pose = detectPoseWithoutNormalize(image)
+            image_pose, marked_pose = detectPoseWithoutNormalize(image, 'uploaded')
             cv2.waitKey(1)
             ret, jpeg = cv2.imencode('.jpg', marked_pose)
             return jpeg.tobytes()
@@ -27,10 +27,10 @@ class VideoCameraRealTime(object):
     def __del__(self):
         self.video.release()
     
-    def get_frame(self, frames_queue, predicted_class_name, confidence, check_class):
+    def get_frame(self, key, frames_queue, predicted_class_name, confidence, check_class):
         success, image = self.video.read()
         if success:
-            res = predict_real_time_detection(image, predicted_class_name, confidence, frames_queue, check_class)
+            res = predict_real_time_detection(key, image, predicted_class_name, confidence, frames_queue, check_class)
             marked_frame = res['frame']
             
             

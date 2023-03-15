@@ -8,7 +8,7 @@ window.onload = function(){
         document.getElementById("seconds").innerHTML = seconds;
         timer_val--;
         if(timer_val == 0){
-          window.location =  document.getElementById('stop_btn').href
+          window.location =  "http://127.0.0.1:8000/analysis?key="+key+"&timer="+timer+"&select_category=0"
         }      
         setTimeout(counter, 1000) 
     }
@@ -26,8 +26,7 @@ let a_link = document.getElementById("rtd_btn").href;
 document.getElementById("rtd_btn").href = a_link+'&timer='+value_in;
 inputBtn1.addEventListener("click",()=>{
   if(value_in>1){
-    if(value_in == 5) value_in = value_in - 4
-    else value_in = value_in - 5
+    value_in = value_in - 1
     value.setAttribute("value", String(value_in)+" min");
     inputBtn2.disabled = false
   }else{
@@ -36,9 +35,8 @@ inputBtn1.addEventListener("click",()=>{
   document.getElementById("rtd_btn").href = a_link+'&timer='+value_in;
 })
 inputBtn2.addEventListener("click",()=>{
-  if(value_in<60){
-    if(value_in == 1) value_in = value_in+4
-    else value_in = value_in + 5
+  if(value_in<10){
+    value_in = value_in + 1
     value.setAttribute("value", String(value_in)+" min");
     inputBtn1.disabled = false
   }else{

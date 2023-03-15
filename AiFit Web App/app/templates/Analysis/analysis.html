@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+{% block title %}
+Analysis
+{% endblock title %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+<style>
+    .curr_acc_card {
+        background-color: #f6f4f115 !important;
+    }
+
+    .cur_acc_card__text{
+        color: #b7b2b2;
+        font-size: 1.2rem;
+        font-weight: 300;
+        text-align: center;
+    }
+
+    .cur_acc_card__text span {
+        color: #fff4f4;
+        font-size: 1.1rem;
+        font-weight: 400;
+    }
+
+    .title h4 {
+        color: #ffffffcc;
+        font-size: 1.5rem;
+    }
+
+    .exe_select {
+        padding: 1rem;
+        background-color: #f6f4f115;
+        color: #fff4f4;
+        border: none;
+    }
+
+    .exe_select:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    .exe_select option{
+        padding: 2rem !important;
+        background-color: #111114fa !important;
+        color: #fff4f4 !important;
+    }
+</style>
+<div class="container my-5 py-5">
+    {% if realtime_acc|len_dic != 0%}
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="card curr_acc_card shadow p-0  bg-dark rounded">
+                <div class="card-header">
+                    <p class="cur_acc_card__text my-2">Exercise Detected</p> 
+                </div>
+                <div class="card-body">
+                    <p class="cur_acc_card__text my-2"><span>{{realtime_acc.category}}</span></p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card curr_acc_card shadow p-0 bg-white rounded">
+                <div class="card-header">
+                    <p class="cur_acc_card__text my-2">Average Accuracy</p>
+                </div>
+                <div class="card-body">
+                    <p class="cur_acc_card__text my-2"><span>{{realtime_acc.accuracy}}%</span></p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card curr_acc_card shadow p-0 bg-white rounded">
+                <div class="card-header">
+                    <p class="cur_acc_card__text my-2">Duration </p>
+                </div>
+                <div class="card-body">
+                    <p class="cur_acc_card__text my-2"><span>{{realtime_acc.duration}} minutes</span></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+    <div class="card curr_acc_card">
+        <div class="card-body" style="padding: 2rem;">
+            <!-- <label for="select_ex" style="color: #b7b2b2;">SELECT EXERCISE</label> -->
+            <select id="select_ex" class="form-select exe_select" onchange="onSelectOption()" aria-label="Default select example">
+                <option selected value="0">Bicep Curl</option>
+                <option value="1">Overhead Press</option>
+                <option value="2">Shoulder Raise</option>
+                <option value="3">Squats</option>
+            </select>
+        </div>
+    </div>
+    <div class="title my-4">
+        <h4 class="text-center">ACCURACY CHART {{select_category|upper}}</h4>
+    </div>
+    <div>
+        <div class="card curr_acc_card">
+            <div class="card-body">
+                <div class="cur_acc_card__text">
+                    <canvas id="accuracy_chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="title my-4">
+        <h4 class="text-center">WEEKLY REPORT</h4>
+    </div>
+    <div>
+        <div class="card curr_acc_card">
+            <div class="card-body">
+                <div class="cur_acc_card__text">
+                    <canvas id="weekly_report"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function onSelectOption(){
+        let val = document.getElementById('select_ex').value
+        window.location = "http://127.0.0.1:8000/analysis?select_category="+val
+    }
+    
+    let select_field = document.getElementById('select_ex')
+    select_field['{{select_index}}'].setAttribute("selected", "selected")
+    let acc_labels_ls = {{ accuracy_chart_data.date|safe}}
+    let acc_data_ls = {{ accuracy_chart_data.avg_accuracy|safe}}
+    const ctx = document.getElementById('accuracy_chart');
+    const ctx1 = document.getElementById('weekly_report');
+
+    var acc_data = {
+        labels: acc_labels_ls,
+        datasets: [{
+            label: '{{select_category}}',
+            data: acc_data_ls,
+            fill: true,
+            borderColor: 'rgb(247, 127, 28)',
+            backgroundColor: 'rgb(247, 127, 28, 0.1)',
+            tension: 0.1,
+
+        }],
+    };
+    var acc_config = {
+        type: 'line',
+        data: acc_data,
+        title: {
+        display: true,
+        text: 'PLEASE DISPLAY FOR HEAVEN\'S SAKE'
+    },
+        options: {
+            responsive: true,
+            interaction: {
+                intersect: false,
+            },
+            scales:{
+                y: {
+                    max: 100,
+                    min: 0,
+                    ticks: {
+                        stepSize: 10
+                    }
+                }
+            }
+        }
+    };
+    var acc_graph = new Chart(ctx, acc_config);
+
+
+    const data = {
+        labels: acc_labels_ls,
+        datasets: [{
+            type: 'bar',
+            label: 'Bicep Curl',
+            data: {{ wk_ls.bicepcurl | safe }},
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(75, 192, 192,0.7)',
+        stack: 'Stack 0',
+        },
+    {
+        type: 'bar',
+            label: 'Overhead Press',
+                data: {{ wk_ls.overheadpress|safe}},
+        borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                stack: 'Stack 0',
+        },
+    {
+        type: 'bar',
+            label: 'Shoulder Raise',
+                data: {{ wk_ls.shoulderraise|safe}},
+        borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 52, 0.7)',
+                stack: 'Stack 0',
+        },
+    {
+        type: 'bar',
+            label: 'Squats',
+                data: {{ wk_ls.squats|safe }},
+        borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 2, 0.7)',
+                stack: 'Stack 0'
+    },
+    ]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            responsive: true,
+            interaction: {
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: false,
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                }
+            }
+        }
+    };
+
+    var mixedChart = new Chart(
+        ctx1,
+        config
+    );
+
+</script>
+{% endblock content %}

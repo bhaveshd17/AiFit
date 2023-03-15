@@ -99,7 +99,11 @@
             <h1>Get In Your Best Shape With <span>AIFit</span></h1>
             <h2>We aim to provide you a complete Gym experience from the comforts of your home</h2>
             <div class="text-center text-lg-start">
+              {% if request.user.is_authenticated %}
+              <a href="{% url 'dashboard' %}" class="btn-get-started scrollto">Dashboard</a>
+              {% else %}
               <a href="{% url 'login' %}" class="btn-get-started scrollto">Get Started</a>
+              {% endif %}
             </div>
           </div>
         </div>

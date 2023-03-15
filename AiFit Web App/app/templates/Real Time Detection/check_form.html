@@ -2,42 +2,45 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{%static 'css/training.css'%}">
+
+
+
 <div class="courses-container mt-5">
   <div class="title">
-    <h3>Select Exercise</h3>
+      <h3>SELECT EXERCISE</h3>
   </div>
-  {% for class in classes %}
+  {% for obj in objects %}
   <div class="course_container">
-    <div class="course">
-      <div class="course-preview">
-        <img src="{% static 'images/RTD/' %}{{class}}.gif" alt="...">
+      <div class="course">
+          <div class="course-preview">
+              <img src="{{obj.image.url}}" alt="">
+          </div>
+          <div class="course-info training_section">
+
+              <a href="{% url 'check_form_detection' obj.title %}">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  {{obj.title}}
+              </a>
+
+              <div class="info">
+                  <h4>Focus Area: </h4>
+                  <h6> {{obj.f_area}}</h6>
+              </div>
+
+
+              <div class="info">
+                  <h4>Equipment: </h4>
+                  <h6> {{obj.equipment}}</h6>
+              </div>
+          </div>
       </div>
-      <div class="course-info training_section">
-        <a href="{% url 'check_form_detection' class %}">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          {{class}}
-        </a>
-        <div class="info">
-          <h4>Focus Area: </h4>
-          <h6>Leg, Hip</h6>
-        </div>
-
-
-        <div class="info">
-          <h4>Equipment: </h4>
-          <h6>Dumbbells</h6>
-        </div>
-      </div>
-
-    </div>
   </div>
   {% endfor %}
 
 </div>
-
 
 
 {% endblock content %}

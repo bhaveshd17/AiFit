@@ -18,6 +18,8 @@ urlpatterns = [
     
     path('rep_counter_biceps/', views.rep_counter_biceps, name='rep_counter_biceps'),
     
+    path('analysis/', views.analysis__lookup, name='analysis'),
+    
     path('signup/', views.sign_up__lookup, name='signup'),
     path('login/', views.login__lookup, name='login'),
     path('logout/', views.logout__lookup, name='logout'),

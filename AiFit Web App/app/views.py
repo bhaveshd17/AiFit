@@ -7,7 +7,7 @@ from django.http import JsonResponse
 import random
 from app.camera import VideoCamera, VideoCameraRealTime, VideoCameraRepCounter
 from django.contrib.auth import authenticate, login, logout
-from .models import Record, UserData
+from .models import Record, UserData, Accuracy
 
 from .models import UserData, Trainer_form, BlogModel
 from .forms import TrainingForm,BlogForm
@@ -21,6 +21,9 @@ from aifit.settings import MEDIA_ROOT, MEDIA_URL
 from django.core.files.base import ContentFile
 from app.model_detection import predict_single_action
 from collections import deque 
+from django.contrib.auth.decorators import login_required
+from datetime import datetime
+from datetime import timedelta
 
 def gen(camera):
     time.sleep(1.0)
@@ -29,6 +32,7 @@ def gen(camera):
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
+@login_required(login_url='login')
 def video_feed(request, *args, **kwargs):
     obj = Record.objects.filter(username=User.objects.filter(username=request.user.username).first()).first()
     if obj is not None:
@@ -38,21 +42,24 @@ def video_feed(request, *args, **kwargs):
     return StreamingHttpResponse(gen(VideoCamera(file_path)),
             content_type='multipart/x-mixed-replace; boundary=frame')
     
-def rtdGen(camera, check_class):
+def rtdGen(key, camera, check_class):
     print(check_class, 'in rtd')
     time.sleep(1.0)
     confidence = 0
     predicted_class = ''
     frames_queue = deque(maxlen = 25)
     while True:
-        frame, frames_queue, predicted_class, confidence = camera.get_frame(frames_queue, predicted_class, confidence, check_class)
+        frame, frames_queue, predicted_class, confidence = camera.get_frame(key, frames_queue, predicted_class, confidence, check_class)
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-        
+
+
+@login_required(login_url='login')         
 def rtd_video_feed(request, *args, **kwargs):
     check_class = request.GET.get('check_class')
-    print(check_class)
-    return StreamingHttpResponse(rtdGen(VideoCameraRealTime(), check_class),
+    key = request.GET.get('key')
+    gen_obj = rtdGen(key, VideoCameraRealTime(), check_class)
+    return StreamingHttpResponse(gen_obj,
             content_type='multipart/x-mixed-replace; boundary=frame')
     
 
@@ -66,6 +73,7 @@ def gen_rep(camera):
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
+@login_required(login_url='login')
 def video_feed_rep(request, *args, **kwargs): 
     return StreamingHttpResponse(gen_rep(VideoCameraRepCounter()),
             content_type='multipart/x-mixed-replace; boundary=frame')
@@ -78,21 +86,19 @@ def home__page(request, *args, **kwargs):
     return render(request, 'landing_page/home.html')
 
 
-
+@login_required(login_url='login')
 def dashboard(request, *args, **kwargs):
     return render(request, 'dashboard/dashboard.html')
 
-
+@login_required(login_url='login')
 def check_form(request, *args, **kwargs):
-    CLASSES_LIST =  ['Bicep Curl', 'Overhead Press', 'Shoulder Raise', 'Squats']
-    context = {
-        'classes': CLASSES_LIST,
-    }
+    objects=Trainer_form.objects.all()
+    context={'objects':objects}
     return render(request, 'Real Time Detection/check_form.html', context)
 
 
 
-
+@login_required(login_url='login')
 def check_form_detection(request, category,*args, **kwargs):
     flag = request.GET.get('flag')
     timer = request.GET.get('timer')
@@ -126,16 +132,22 @@ def check_form_detection(request, category,*args, **kwargs):
         }
         s_obj.delete()
     else:
+        acc_s = SessionStore()
+        acc_s['accuracy'] = []
+        acc_s['category'] = category
+        acc_s.create()
+        key = acc_s.session_key
         context = {
             'category':category[0].upper()+category[1:],
             'flag': flag,
-            'timer':timer
+            'timer':timer,
+            'key':key
         }
         if s_obj:
             s_obj.delete()
     return render(request, 'Real Time Detection/check_form_detection.html', context)
 
-
+@login_required(login_url='login')
 def upload_video_detection(request, category, *args, **kwargs):
     if request.method == 'POST':
         user = request.user.first_name.lower() +'_'+request.user.last_name.lower()
@@ -192,7 +204,7 @@ def upload_video_detection(request, category, *args, **kwargs):
         #     })
 
 
-
+@login_required(login_url='login')
 def rep_counter_biceps(request,*args,**kwargs):
     flag = request.GET.get('flag')
     context = {
@@ -200,6 +212,50 @@ def rep_counter_biceps(request,*args,**kwargs):
     }
     return render(request, 'Rep Counter/repcounter.html', context)
 
+
+@login_required(login_url='login')
+def analysis__lookup(request, *args, **kwargs):
+    key = request.GET.get('key')
+    timer = request.GET.get('timer')
+    select_category = request.GET.get('select_category')
+    realtime_acc = {}
+    cat_ls = ["Bicep Curl", "Overhead Press", "Shoulder Raise", "Squats"]
+    if key is not None and timer is not None:
+        s_obj = Session.objects.filter(session_key=key).first()
+        data = s_obj.get_decoded()
+        avg_accuracy = round(sum(data['accuracy'])/len(data['accuracy']), 2)
+        Accuracy.objects.create(
+            username=User.objects.get(id=request.user.id),
+            exercise=Trainer_form.objects.get(title__icontains=data['category']),
+            avg_accuracy=avg_accuracy,
+            duration=timer
+        )
+        realtime_acc['accuracy'] = avg_accuracy
+        realtime_acc['category'] = data['category']
+        realtime_acc['duration'] = timer
+    
+    
+    if select_category is not None:
+        
+        acc_obj = Accuracy.objects.filter(username=User.objects.get(id=request.user.id), exercise=Trainer_form.objects.get(title=cat_ls[int(select_category)]))
+        accuracy_chart_data = {'avg_accuracy':[], 'date':[]}
+        for i in acc_obj:
+            accuracy_chart_data['avg_accuracy'].append(i.avg_accuracy)
+            accuracy_chart_data['date'].append(i.date.strftime('%Y-%m-%d'))
+        
+        wk_ls = {}
+        acc_ojects = Accuracy.objects.filter(username=User.objects.get(id=request.user.id))
+        for i in acc_ojects:
+            key_elem = "".join(i.exercise.title.lower().split(' '))
+            if key_elem not in wk_ls.keys():
+                wk_ls[key_elem] = []
+                wk_ls[key_elem].append(i.avg_accuracy)
+            else:
+                wk_ls[key_elem].append(i.avg_accuracy)
+    else:
+        return redirect('dashboard')
+    context = {'realtime_acc':realtime_acc, 'accuracy_chart_data':accuracy_chart_data, 'wk_ls':wk_ls, 'select_category':cat_ls[int(select_category)], 'select_index':select_category}
+    return render(request, 'Analysis/analysis.html', context=context)
 
 
 @unauthenticated_user
@@ -255,6 +311,7 @@ def logout__lookup(request, *args, **kwargs):
 
 
 #training website
+@login_required(login_url='login')
 def train(request,pk):
     context = {}
     try:
@@ -265,11 +322,13 @@ def train(request,pk):
         print(e)
     return render(request,'training/training.html',context) 
 
+@login_required(login_url='login')
 def trainer_main(request):
     objects=Trainer_form.objects.all()
     context={'objects':objects}
     return render(request,'training/trainer_main.html',context=context)     
 
+@login_required(login_url='login')
 def trainer_form(request):
     form = TrainingForm()
     if request.method== "POST":
@@ -283,12 +342,13 @@ def trainer_form(request):
 
    
 
-# blogs   
+# blogs  
+@login_required(login_url='login') 
 def blogs(request):
     context = {'blogs': BlogModel.objects.all()}
     return render(request, 'blogs/blogs.html',context)
 
-
+@login_required(login_url='login')
 def blog_detail(request, id):
     context = {}
     try:

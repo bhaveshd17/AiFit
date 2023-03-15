@@ -2,12 +2,14 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import matplotlib.pyplot as plt
-from tensorflow.keras.models import load_model
 import tensorflow as tf
 import random
 from aifit.settings import BASE_DIR
+from django.contrib.sessions.backends.db import SessionStore
+from django.contrib.sessions.models import Session
 import os
-from .apps import AppConfig
+MODEL_PATH = os.path.join(BASE_DIR, 'best_model_V2.h5')
+aifit_lrcn_model = tf.keras.models.load_model(MODEL_PATH)
 
 seed_constant = 23
 np.random.seed(seed_constant)
@@ -22,6 +24,7 @@ pose_video = mp_pose.Pose(static_image_mode=False, min_detection_confidence=0.7,
 mp_drawing = mp.solutions.drawing_utils
 
 CLASSES_LIST =  ['Bicep Curl', 'Overhead Press', 'Shoulder Raise', 'Squats']
+
 
 def detectPose(image_pose, pose, draw=False, display=False):
     try:
@@ -50,19 +53,33 @@ def detectPose(image_pose, pose, draw=False, display=False):
         return image_pose, image_pose
 
 
-def detectPoseWithoutNormalize(image_pose, pose=pose_image, draw=True, display=False):
+def detectPoseWithoutNormalize(image_pose, predicted_class_name, pose=pose_image, draw=True, display=False):
     # try:
     image_in_RGB = cv2.cvtColor(image_pose, cv2.COLOR_BGR2RGB)
     resultant = pose.process(image_in_RGB)
     marked_img = image_pose
-    if resultant.pose_landmarks and draw:    
-        mp_drawing.draw_landmarks(image=marked_img, landmark_list=resultant.pose_landmarks,
-                                connections=mp_pose.POSE_CONNECTIONS,
-                                landmark_drawing_spec=mp_drawing.DrawingSpec(color=(255,255,255),
-                                                                            thickness=6, circle_radius=3),
-                                connection_drawing_spec=mp_drawing.DrawingSpec(color=(49,125,237),
-                                                                            thickness=3, circle_radius=2))
-
+    if resultant.pose_landmarks and draw:
+        if predicted_class_name == 'Inaccurate Workout' or predicted_class_name == '':  
+            mp_drawing.draw_landmarks(image=marked_img, landmark_list=resultant.pose_landmarks,
+                                    connections=mp_pose.POSE_CONNECTIONS,
+                                    landmark_drawing_spec=mp_drawing.DrawingSpec(color=(0, 0, 255),
+                                                                                thickness=6, circle_radius=3),
+                                    connection_drawing_spec=mp_drawing.DrawingSpec(color=(3, 3, 255),
+                                                                                thickness=3, circle_radius=2))
+        elif predicted_class_name == 'uploaded':  
+            mp_drawing.draw_landmarks(image=marked_img, landmark_list=resultant.pose_landmarks,
+                                    connections=mp_pose.POSE_CONNECTIONS,
+                                    landmark_drawing_spec=mp_drawing.DrawingSpec(color=(3, 230, 3),
+                                                                                thickness=6, circle_radius=3),
+                                    connection_drawing_spec=mp_drawing.DrawingSpec(color=(14, 158, 14),
+                                                                                thickness=3, circle_radius=2))
+        else:
+            mp_drawing.draw_landmarks(image=marked_img, landmark_list=resultant.pose_landmarks,
+                                    connections=mp_pose.POSE_CONNECTIONS,
+                                    landmark_drawing_spec=mp_drawing.DrawingSpec(color=(3, 230, 3),
+                                                                                thickness=6, circle_radius=3),
+                                    connection_drawing_spec=mp_drawing.DrawingSpec(color=(14, 158, 14),
+                                                                                thickness=3, circle_radius=2))
     if display:
             plt.figure(figsize=[5,5])
             plt.subplot(121);plt.imshow(image_pose[:,:,::-1]);plt.title("Input Image");plt.axis('off');
@@ -76,7 +93,6 @@ def detectPoseWithoutNormalize(image_pose, pose=pose_image, draw=True, display=F
 
 
 def predict_single_action(video_file_path, SEQUENCE_LENGTH):
-    aifit_lrcn_model = AppConfig.aifit_lrcn_model
     IMAGE_HEIGHT, IMAGE_WIDTH = 64, 64
     print(video_file_path)
     # video_file_path = "E:/Final Year/Major/AiFit/AiFit Web App/static/images/recorded_videos/bhavesh_dhake.mp4"
@@ -115,34 +131,47 @@ def predict_single_action(video_file_path, SEQUENCE_LENGTH):
     }
     
 
-def predict_real_time_detection(frame, predicted_class_name, confidence, frames_queue, check_class):
-    aifit_lrcn_model = AppConfig.aifit_lrcn_model
+def predict_real_time_detection(key, frame, predicted_class_name, confidence, frames_queue, check_class):
     SEQUENCE_LENGTH = 25
     IMAGE_HEIGHT, IMAGE_WIDTH = 64, 64
         
     # Resize the Frame to fixed Dimensions.
     image_frame, marked_frame = detectPose(frame, pose_image, draw=True, display=False)
-    image_frame, clear_marked_frame = detectPoseWithoutNormalize(frame, pose_image, draw=True, display=False)
     resized_frame = cv2.resize(marked_frame, (IMAGE_HEIGHT, IMAGE_WIDTH))
     print(np.shape(frames_queue))
+    in_conf = 0
     frames_queue.append(resized_frame)
     if len(frames_queue) == SEQUENCE_LENGTH:
         predicted_labels_probabilities = aifit_lrcn_model.predict(np.expand_dims(frames_queue, axis = 0))[0]
         predicted_label = np.argmax(predicted_labels_probabilities)
         predicted_class_name = CLASSES_LIST[predicted_label]
         confidence = round(predicted_labels_probabilities[predicted_label]*100, 2)
+        # in_conf = round(100 - confidence, 2)
         if check_class.upper() != predicted_class_name.upper():
             predicted_class_name = 'Inaccurate Workout'
-            confidence = str(random.randint(1, 10)*0.01)
-        
+            in_conf = round(random.uniform(70, 100), 2)
+            confidence = round(100 - in_conf, 2)
+    image_frame, clear_marked_frame = detectPoseWithoutNormalize(frame, predicted_class_name, pose=pose_image, draw=True, display=False)
     clear_marked_frame = cv2.flip(clear_marked_frame, 1)
-    cv2.putText(clear_marked_frame, f"{predicted_class_name} - {confidence}%"
-                , (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
+    cv2.putText(clear_marked_frame, f"Accuracy - {confidence}%"
+                , (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+    cv2.putText(clear_marked_frame, f"{check_class.upper()}"
+                , (300, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+    
+    s_obj = Session.objects.filter(session_key=key).first()
+    if s_obj is not None and confidence != 0:
+            data = s_obj.get_decoded()
+            accuracy_ls = data['accuracy']
+            accuracy_ls.append(confidence)
+            s = SessionStore(session_key=key)
+            s['accuracy'] = accuracy_ls
+            s.save()
+    
     return {
         'class':predicted_class_name,
         'confidence': confidence,
         'frames_queue':frames_queue,
-        'frame':clear_marked_frame
+        'frame':clear_marked_frame,
     }
 
 

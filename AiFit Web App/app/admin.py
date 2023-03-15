@@ -7,4 +7,5 @@ admin.site.register(Record)
 admin.site.register(Trainer_form)
 admin.site.register(BlogModel)
 admin.site.register(Session)
+admin.site.register(Accuracy)
 

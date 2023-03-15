@@ -21,6 +21,7 @@ class UserData(models.Model):
 
     def __str__(self):
         return str(self.name)
+    
 
 def video_collection_path(instance, filename):
     return f"recorded_videos/{filename}"
@@ -31,8 +32,8 @@ class Record(models.Model):
     
     def __str__(self):
         return str(self.id)
-
-
+ 
+ 
 class Trainer_form(models.Model):    
     title= models.CharField(max_length=100)
     # image= CloudinaryField('event')
@@ -44,7 +45,19 @@ class Trainer_form(models.Model):
     keyTip= models.TextField(max_length=1000)
 
     def __str__(self):
-        return self.title 
+        return self.title    
+        
+class Accuracy(models.Model):
+    username = models.ForeignKey(User, on_delete=CASCADE, null=True, blank=True)
+    exercise = models.ForeignKey(Trainer_form, on_delete=CASCADE, null=True, blank=True)
+    avg_accuracy = models.CharField(max_length=40, null=True, blank=True)
+    duration = models.CharField(max_length=40, null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{str(self.username)} - {str(self.exercise.title)}"
+
+
 
 class BlogModel(models.Model):
     title = models.CharField(max_length=1000)

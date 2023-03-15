@@ -119,6 +119,11 @@
   font-size: 1.2rem;
   font-weight: 500;
  }
+ .help_text{
+  color:#fff;
+  font-size: 1rem;
+  font-weight: 300;
+ }
  .timer span{
   color:#ffcc74;
   font-size: 1.2rem;
@@ -130,3 +135,11 @@
   height: 100%;
   border-radius: 1rem;
  }
+
+ .fullscreen_icon{
+  position: absolute;
+  left: 51%;
+  margin: 0.2rem;
+  font-size: 1.2rem;
+  color: #111114;
+}

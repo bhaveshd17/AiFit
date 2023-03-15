@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/ef58851e0f.js" crossorigin="anonymous"></script>
+    <style>
+        img {
+            display: block;
+            max-width: 100%;
+            margin: 2rem 0;
+        }
+
+        /* img:fullscreen { */
+            /* background: url(https://source.unsplash.com/600x400/?iran) 0 0/40px;
+        } */
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font: 100%/1.7 system-ui;
+            background-color: #1b1b1b;
+            color: #eee;
+        }
+
+        .container {
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        button {
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+            font-family: inherit;
+            display: inline-block;
+            text-align: center;
+            user-select: none;
+            border: 1px solid #007bff;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            color: #fff;
+            background-color: #007bff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <p>When the image goes to fullscreen mode to preserve its aspect ratio, it won't fill the whole screen therefore a background might appear. <br> Using :fullscreen pseudo-class selector we can control the background and other styles:</p>
+        <div>
+            <div><i class="fa-solid fa-expand"></i></div>
+            <img id="fullscreen_image" src="https://source.unsplash.com/600x400/?iran" alt="">
+      
+        </div>
+      </div>
+      
+    <script>
+        let fullscreen = document.getElementById("fullscreen_image");
+
+        fullscreen.addEventListener("click", () => {
+            if (!document.fullscreenElement) {
+                fullscreen?.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        });
+    </script>
+</body>
+
+</html>

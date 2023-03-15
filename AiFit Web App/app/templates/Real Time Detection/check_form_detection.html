@@ -26,11 +26,11 @@ Check Form
 </div> -->
 
 <div class="container mt-t pt-5">
-  <h3 class="heading">Check Body Form</h3>
+  <h4 class="heading">CHECK <span>{{category|upper}}</span> FORM</h4>
   {% if flag == 'upload' %}
   <div class="row">
     <div class="col-6 py-5">
-      <div><img src="{% url 'video_feed' %}" class="img-fluid rounded" alt=""></div>
+      <div><img id="fullscreen_image" src="{% url 'video_feed' %}" class="img-fluid rounded" alt=""></div>
     </div>
     <div class="col-6">
       <div style="text-align: center;margin-top: 5rem;">
@@ -43,12 +43,16 @@ Check Form
   {% elif flag == 'realtimedetection' %}
   <div class="row">
     <div class="col-6 py-5">
-      <div><img src="{% url 'rtd_video_feed' %}?check_class={{category}}" class="img-fluid rounded" alt=""></div>
+      <div>
+        <img id="fullscreen_image" src="{% url 'rtd_video_feed' %}?check_class={{category}}&key={{key}}" class="img-fluid rounded" alt="">
+      </div>
     </div>
     <div class="col-6">
       <div style="text-align: center;margin-top: 5rem;">
         <div class="timer">Time Remaining: <span id="minute"></span> min <span id="seconds"></span> sec</div>
-        <a href="{% url 'check_form_detection' category %}" id="stop_btn" style="margin-top: 2rem; margin-bottom: 2.5rem;" class="btn btn-danger w-50">Stop</a>
+        
+        <a href="{% url 'check_form_detection' category %}" id="stop_btn" style="margin-top: 2rem; margin-bottom: 1.2rem;" class="btn btn-danger w-50">Stop</a>
+        <div class="help_text">Click on video to enter full screen</div>
       </div>
     </div>
   </div>
@@ -106,7 +110,9 @@ Check Form
   let csrfToken = getCookie('csrftoken');
   const flag = '{{flag}}';
   const timer = '{{timer}}';
+  const key = '{{key}}';
 </script>
 <script src="{% static 'js/media_device.js' %}"></script>
+<script src="{% static 'js/fullscreen.js' %}"></script>
 
 {% endblock content %}
