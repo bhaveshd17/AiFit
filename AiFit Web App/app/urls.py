@@ -15,6 +15,7 @@ urlpatterns = [
     path('check_form/', views.check_form, name='check_form'),
     path('check_form/<str:category>/', views.check_form_detection, name='check_form_detection'),
     path('upload_video_detection/<str:category>/', views.upload_video_detection, name='upload_video_detection'),
+    path('profile/<int:id>/', views.profile__lookup, name='profile__lookup'),
     
     path('rep_counter_biceps/', views.rep_counter_biceps, name='rep_counter_biceps'),
     

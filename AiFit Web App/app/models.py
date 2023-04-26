@@ -5,19 +5,19 @@ from ckeditor.fields import RichTextField
 
 
 class UserDetails(models.Model):
-    username = models.OneToOneField(User,on_delete=CASCADE, null=True, blank=True)
+    username = models.OneToOneField(User,on_delete=CASCADE, null=True, blank=True, related_name='user_details')
     name = models.CharField(max_length=120, blank=True, null=True)
     gender = models.CharField(max_length=20, choices=sorted({
         ('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')
     }),  blank=True, null=True)
     age = models.CharField(max_length=5, blank=True, null=True)
     activity_level = models.CharField(max_length=200, choices=sorted({
-        ('1','Sedentary'),('2','Lightly active'),('3','Moderatly active'),('4','Very active')
+        ('Sedentary','Sedentary'),('Lightly active','Lightly active'),('Moderatly active','Moderatly active'),('Very active','Very active')
     }), blank=True, null=True)
     height = models.CharField(max_length=4, blank=True, null=True)
     weight = models.CharField(max_length=3, blank=True, null=True)
     main_goal=models.CharField(max_length=20, choices=sorted({
-        ('1','Loose Weight'),('2','Build Muscels'),('3','Keep Fit')
+        ('Loose Weight','Loose Weight'),('Build Muscels','Build Muscels'),('Keep Fit','Keep Fit')
     }), blank=True, null=True)
     medical_conditions = models.CharField(max_length=500, blank=True, null=True)
     

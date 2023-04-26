@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block title %}
+Profile
+{% endblock title %}
+{% load static %}
+
+{% block content %}
+<style>
+    .card,
+    list-group {
+        background-color: #f6f4f115 !important;
+    }
+
+    .card {
+        color: #b7b2b2;
+        font-size: 1.2rem;
+        font-weight: 300;
+        text-align: center;
+    }
+
+    .card span {
+        color: #fff4f4;
+        font-size: 1.1rem;
+        font-weight: 400;
+    }
+
+    .title h4 {
+        color: #ffffffcc;
+        font-size: 1.5rem;
+    }
+    .btn-primary{
+        background-color: #ff6700 !important;
+        color: #171717 !important;
+        border: none !important;
+        outline: none !important;
+    }
+    .btn-primary:hover{
+        background-color: #f0660a !important;
+        color: #171717 !important;
+    }
+    .btn-primary:focus{
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+
+    }
+</style>
+
+<section id="profile">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        {% if user.gender == "Male" %}
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                            alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        {% else %}
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4.webp"
+                            alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        {% endif %}
+                        
+                        <h5 class="mt-3 mb-0">{{user.name}}</h5>
+                        <p class="text-muted mb-2">{{user.activity_level}}</p>
+                        <div class="mb-2">
+                            <button type="button" class="w-75 mx-auto btn btn-primary">Add Blogs</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Full Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{user.name}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{user.username.username}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Gender</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{user.gender}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Age</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{user.age}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Height</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{user.height}} cm</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Weight</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{user.weight}} kg</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Medical Condition</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{user.medical_conditions}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Activity Level</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{user.activity_level}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Main Goal</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{user.main_goal}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

@@ -146,6 +146,8 @@ def predict_real_time_detection(key, frame, predicted_class_name, confidence, fr
         predicted_label = np.argmax(predicted_labels_probabilities)
         predicted_class_name = CLASSES_LIST[predicted_label]
         confidence = round(predicted_labels_probabilities[predicted_label]*100, 2)
+        # if confidence>=50 and confidence<=79 and check_class.upper()!=predicted_class_name.upper():
+        #     confidence = confidence + 19.0
         # in_conf = round(100 - confidence, 2)
         if check_class.upper() != predicted_class_name.upper():
             predicted_class_name = 'Inaccurate Workout'

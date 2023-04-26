@@ -86,7 +86,8 @@ def home__page(request, *args, **kwargs):
 
 @login_required(login_url='login')
 def dashboard(request, *args, **kwargs):
-    return render(request, 'dashboard/dashboard.html')
+    user = UserDetails.objects.filter(username=User.objects.get(username=request.user.username)).first()
+    return render(request, 'dashboard/dashboard.html', context={'user':user})
 
 @login_required(login_url='login')
 def check_form(request, *args, **kwargs):
@@ -278,6 +279,16 @@ def user_data(request):
     content = {'usr_form':usr_form}
     return render(request, 'authentication/user_details.html', content)
 
+@login_required(login_url='login')
+def profile__lookup(request, id,*args, **kwargs):
+    user = UserDetails.objects.filter(id=id).first()
+    if user:
+        context = {
+            'user':user
+        }
+        return render(request, 'dashboard/profile.html', context=context)
+    else:
+        return redirect(dashboard)
 
 @unauthenticated_user
 def sign_up__lookup(request, *args, **kwargs):
