@@ -8,8 +8,9 @@ from .models import*
 class UserDataForm(forms.ModelForm):
 
     class Meta:
-        model = UserData
+        model = UserDetails
         fields ="__all__"
+        exclude=('username',)
 
 class RecordForm(forms.ModelForm):
     # specify the name of model to use

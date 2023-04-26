@@ -6,10 +6,9 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 import random
 from app.camera import VideoCamera, VideoCameraRealTime, VideoCameraRepCounter
+from app.model_detection import predict_single_action
 from django.contrib.auth import authenticate, login, logout
-from .models import Record, UserData, Accuracy
-
-from .models import UserData, Trainer_form, BlogModel
+from .models import Record, Accuracy, Trainer_form, BlogModel, UserDetails
 from .forms import TrainingForm,BlogForm, UserDataForm
 from .decorators import unauthenticated_user
 from django.contrib.sessions.backends.db import SessionStore
@@ -19,7 +18,6 @@ import time
 import os
 from aifit.settings import MEDIA_ROOT, MEDIA_URL
 from django.core.files.base import ContentFile
-from app.model_detection import predict_single_action
 from collections import deque 
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
@@ -257,15 +255,23 @@ def analysis__lookup(request, *args, **kwargs):
     context = {'realtime_acc':realtime_acc, 'accuracy_chart_data':accuracy_chart_data, 'wk_ls':wk_ls, 'select_category':cat_ls[int(select_category)], 'select_index':select_category}
     return render(request, 'Analysis/analysis.html', context=context)
 
-
+@login_required(login_url='login')
 def user_data(request):
     usr_form = UserDataForm()
+    user_details = UserDetails.objects.filter(username=User.objects.get(username=request.user.username)).first()
+    if user_details.name:
+        return redirect('dashboard')
     if request.method == 'POST':
-        usr_form = UserDataForm(request.POST, request.FILES)
+        usr_form = UserDataForm(request.POST)
         if usr_form.is_valid():
-            usr_form.save()
-            print("good")
-            return redirect('dashboard')
+            usr = User.objects.get(username=request.user.username)
+            user_detail_obj = UserDetails.objects.filter(username=usr)
+            if user_detail_obj.first() is not None:
+                print(usr_form.cleaned_data)
+                user_detail_obj.update(**usr_form.cleaned_data)
+                return redirect('dashboard')
+            else:
+                return redirect('userData')
         else:
             print(usr_form.errors)   
             return redirect('userData')
@@ -290,7 +296,7 @@ def sign_up__lookup(request, *args, **kwargs):
             user.set_password(password)
             user.save()
             
-            UserData.objects.create(
+            UserDetails.objects.create(
                 username=user
             )
             login(request, user)

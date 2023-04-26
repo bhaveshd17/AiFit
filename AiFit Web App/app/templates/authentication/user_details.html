@@ -1,95 +1,78 @@
-{% extends "base.html" %}
+{% extends "authentication/mdbbase.html" %}
+{% block title%}Signup{% endblock title %}
 {% load static %}
-{% block title %}
-profile
-{% endblock title %}
+
 {% block content %}
-
-<style>
-  input,
-  select,
-  textarea {
-    background-color: #eee !important;
-  }
-</style>
-
-<div class="pt-5 m-5" style="height: 100vh;">
-
-  <div class="card card-body w-50 mx-auto px-5" style=" background-color: #F87E1A;">
-    <form action="" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div id="personal-details">
-        <h3 class="text-center my-3">Personal Details</h3>
-        <div class="mb-3" style="display: none;">
-          {{usr_form.username}}
-        </div>
-        <div class="mb-3 form-floating">
-          {{usr_form.name}}
-          <label for="id_name">Full Name</label>
-        </div>
-        <div class="form-floating mb-3">
-          {{usr_form.gender}}
-          <label for="id_gender">Select Gender</label>
-        </div>
-        <div class="form-floating mb-3">
-          {{usr_form.age}}
-          <label for="id_age">Enter Your Age</label>
-        </div>
-        <div class="form-floating mb-3">
-          {{usr_form.medical_conditions}}
-          <label for="id_medical">Any Medical_Conditions</label>
-        </div>
-
-        <div class="mb-3 mt-7 d-flex justify-content-center">
-          <button type="button" class="btn btn-outline-dark w-50" id="next">Next</button>
+<section class="vh-100" style="background-color: #F87E1A;">
+  <form data-multi-step action="" method="POST">
+    {% csrf_token %}
+    <div data-step="1" id="personal-details" class="mb-5">
+      <div class="pt-5">
+        <div class="card card-body mt-5 pt-3 pb-5 px-5 w-50 mx-auto shadow">
+          <div class="d-flex justify-content-center">
+            <img src="{% static 'images/logo.png' %}" class="img-fluid logo_signup_page" alt="">
+          </div>
+          <h3 class="text-center mb-3">Personal Details</h3>
+          <div class="mb-3 form-floating">
+            {{usr_form.name}}
+            <label for="id_name">Full Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            {{usr_form.gender}}
+            <label for="id_gender">Select Gender</label>
+          </div>
+          <div class="form-floating mb-3">
+            {{usr_form.age}}
+            <label for="id_age">Enter Your Age</label>
+          </div>
+          <div class="form-floating mb-3">
+            {{usr_form.medical_conditions}}
+            <label for="id_medical">Medical Issues (NA if no issues)</label>
+            <small></small>
+          </div>
+          <div class="mt-3 w-50 mx-auto">
+            <button type="button" class="w-100 btn btn-lg btn-dark btn-block" id="next">Next</button>
+          </div>
         </div>
       </div>
-
-      <div id="fitness-details" style="display: none;">
-        <h3 class="text-center my-3">Personal Details</h3>
-
-        <div class="form-floating mb-4" style="display: none;">
-          {{usr_form.is_verified}}
+    </div>
+    <div data-step="2" id="fitness-details" style="display: none;">
+      <div class="pt-5">
+        <div class="card card-body mt-5 pt-3 pb-5 px-5 w-50 mx-auto shadow">
+          <div class="d-flex justify-content-center">
+            <img src="{% static 'images/logo.png' %}" class="img-fluid logo_signup_page" alt="">
         </div>
-        <div class="mb-3 form-floating">
-          {{usr_form.height}}
-          <label for="id_height">Enter Height (in cm)</label>
-        </div>
-        <div class="form-floating mb-3">
-          {{usr_form.weight}}
-          <label for="id_weight">Enter Weight (in kg)</label>
-        </div>
-        <div class="form-floating mb-3">
-          {{usr_form.activity_level}}
-          <label for="id_activty">Activity Level</label>
-        </div>
-        <div class="form-floating mb-3">
-          {{usr_form.main_goal}}
-          <label for="id_main_goal">Main Goal</label>
-        </div>
-
-        <div class="mb-3 mt-5 d-flex justify-content-center">
-          <button type="button" class="btn btn-outline-dark w-25 me-3" id="prev">Back</button>
-          <button type="submit" class="btn btn-outline-dark w-25">Submit</button>
+          <h3 class="text-center mb-3">Fitness Details</h3>
+          <div class="mb-3 form-floating">
+            {{usr_form.height}}
+            <label for="id_height">Enter Height (in cm)</label>
+          </div>
+          <div class="form-floating mb-3">
+            {{usr_form.weight}}
+            <label for="id_weight">Enter Weight (in kg)</label>
+          </div>
+          <div class="form-floating mb-3">
+            {{usr_form.activity_level}}
+            <label for="id_activty">Activity Level</label>
+          </div>
+          <div class="form-floating mb-3">
+            {{usr_form.main_goal}}
+            <label for="id_main_goal">Main Goal</label>
+          </div>
+          <div class="mt-3 d-flex justify-content-around">
+            <button type="button" class="w-50 btn btn-lg btn-light me-5" id="prev">Previous</button>
+            <button type="submit" class="w-50 btn btn-lg btn-dark">Submit</button>
+          </div>
         </div>
       </div>
-    </form>
-  </div>
-
-</div>
-
-
-
-
-
+    </div>
+  </form>
+</section>
 <script>
+  console.log("{{request.user.id}}")
   $("input").addClass("form-control")
-  $("input").prop("placeholder", "search")
   $("select").addClass("form-select")
   $("textarea").addClass("form-control")
-  $("textarea").prop("placeholder", "abc")
-  // $("#id_profileImg").hide()
-
 
   $(document).ready(function () {
     $("#next").click(function () {
@@ -99,13 +82,10 @@ profile
     $("#prev").click(function () {
       $("#personal-details").show()
       $("#fitness-details").hide()
-    })   
+    })
 
 
   })
 
-
-  
-
 </script>
-{% endblock content %}v
+{% endblock content %}

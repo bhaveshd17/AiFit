@@ -4,13 +4,13 @@ from django.db.models.deletion import CASCADE
 from ckeditor.fields import RichTextField
 
 
-class UserData(models.Model):
+class UserDetails(models.Model):
     username = models.OneToOneField(User,on_delete=CASCADE, null=True, blank=True)
     name = models.CharField(max_length=120, blank=True, null=True)
     gender = models.CharField(max_length=20, choices=sorted({
-        ('1', 'Male'), ('2', 'Female'), ('3', 'Other')
+        ('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')
     }),  blank=True, null=True)
-    age = models.IntegerField( blank=True, null=True)
+    age = models.CharField(max_length=5, blank=True, null=True)
     activity_level = models.CharField(max_length=200, choices=sorted({
         ('1','Sedentary'),('2','Lightly active'),('3','Moderatly active'),('4','Very active')
     }), blank=True, null=True)
@@ -23,7 +23,7 @@ class UserData(models.Model):
     
 
     def __str__(self):
-        return str(self.name)
+        return str(self.username)
     
 
 def video_collection_path(instance, filename):
