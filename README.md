@@ -20,7 +20,7 @@
 
 ## 📹 Demo Video
 
-🎥 [Watch the AIFit Demo](https://)
+🎥 [Watch the AIFit Demo](https://drive.google.com/file/d/16qLUvDUhCoN9weiNmMX6dy5EYF4OI-FA/view?usp=sharing)
 
 ## 📦 Installation
 
