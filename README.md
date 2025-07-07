@@ -1,3 +1,32 @@
-# AiFit
+# 🏋️‍♂️ AIFit
 
-A personalised workout or training website or application should detect proper form of workouts, has a counter for reps, does the process of analysing and correction; in short, something that emulates the tasks of a human gym trainer. It should also provide personalised set of exercises based on various factors and support and constructive competition among users. AIFit is a website that aims to provide all this under one roof based on various subscription models and has a variety of features ranging from real-time body form detection to rep counter. It provides all this under various subscription models and uses latest state of the art technologies like Artifical Intelligence, Deep Learning and Object Detection.
+**AIFit** is an AI-powered personal fitness trainer platform designed to revolutionize the way users experience home workouts. Combining cutting-edge technologies like Artificial Intelligence, Deep Learning, and Real-Time Object Detection, AIFit delivers features that emulate the experience of a professional gym trainer — from detecting correct body posture to counting reps and offering personalized fitness plans.
+
+## 🌟 Key Features
+
+- 🔍 **Real-Time Form Detection**: Ensures correct posture and form using advanced pose estimation and computer vision techniques.
+- 🔢 **Rep Counter**: Automatically counts repetitions with high accuracy using object detection and motion tracking.
+- 🧠 **AI-Powered Feedback**: Offers real-time corrections and tips to improve performance and reduce injury risk.
+- 💳 **Subscription Models**: Flexible pricing with free and premium tiers to unlock various advanced features.
+- 🌐 **Cross-Platform Access**: Optimized for web and mobile experiences.
+
+## 🚀 Technologies Used
+
+- **Frontend**: React.js / Next.js
+- **Backend**: Node.js / Express / FastAPI
+- **AI/ML**: TensorFlow / PyTorch / MediaPipe / OpenCV
+- **Database**: MongoDB / PostgreSQL
+- **Hosting**: Vercel / AWS / Firebase
+
+## 📹 Demo Video
+
+🎥 [Watch the AIFit Demo](https://)
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/your-username/AIFit.git
+cd AIFit
+npm install
+npm run dev
+
